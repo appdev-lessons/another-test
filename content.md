@@ -16,7 +16,7 @@ Reference images from the `assets/` folder like so:
 ![](assets/example-gif.gif)
 ```
 
-Which produces:
+Which renders locally or on GitHub (but not on Learn):
 
 ![](assets/example-image.png)
 
