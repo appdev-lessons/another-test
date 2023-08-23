@@ -31,6 +31,8 @@ jobs:
       - name: Update image links
         run: |
           sed -i "s|](assets/|](https://learn-lesson-assets.s3.us-east-2.amazonaws.com/${{ steps.repo_name.outputs.repo_name }}/|g" content.md
+          git config --global user.name "Ben Purinton"
+          git config --global user.email "ben.purinton@gmail.com"
           git add content.md
           git commit -m "Update image links"
           git push
