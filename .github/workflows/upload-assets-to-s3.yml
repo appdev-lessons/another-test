@@ -1,8 +1,5 @@
 name: Push to S3
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
   deploy:
@@ -27,17 +24,18 @@ jobs:
       - name: Get Modified and New Asset Files
         id: changes
         run: |
-          MODIFIED_FILES=$(git diff --name-only HEAD^ -- assets/)
-          NEW_FILES=$(git ls-files --others --exclude-standard assets/)
-          echo "::set-output name=modified_files::$MODIFIED_FILES"
-          echo "::set-output name=new_files::$NEW_FILES"
+          if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+            MODIFIED_AND_NEW_FILES=$(git diff --name-only --diff-filter=AM HEAD^ -- assets/)
+          else
+            MODIFIED_AND_NEW_FILES=$(git ls-files assets/)
+          fi
+          echo "::set-output name=modified_and_new_files::$MODIFIED_AND_NEW_FILES"
 
       - name: Sync Modified assets to S3 bucket
         run: |
           REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
-          MODIFIED_FILES=${{ steps.changes.outputs.modified_files }}
-          NEW_FILES=${{ steps.changes.outputs.new_files }}
+          MODIFIED_AND_NEW_FILES=${{ steps.changes.outputs.modified_and_new_files }}
 
-          for file in $MODIFIED_FILES $NEW_FILES; do
+          for file in $MODIFIED_AND_NEW_FILES; do
             aws s3 cp "$file" "s3://learn-lesson-assets/$REPO_NAME/$(basename $file)"
           done
