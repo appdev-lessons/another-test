@@ -19,9 +19,9 @@ jobs:
       - name: Create Repository Subfolder
         run: |
           REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
-          aws s3api put-object --bucket learn-lesson-assets --key "$REPO_NAME/assets/"
+          aws s3api put-object --bucket learn-lesson-assets --key "$REPO_NAME/"
 
       - name: Sync assets to S3 bucket
         run: |
           REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
-          aws s3 sync assets "s3://learn-lesson-assets/$REPO_NAME/assets/" --delete
+          aws s3 sync assets "s3://learn-lesson-assets/$REPO_NAME/" --delete
