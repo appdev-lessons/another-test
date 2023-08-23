@@ -6,25 +6,24 @@ Add your content here!
 
 Use `##` second or greater level headings (HTML `<h2>` and greater).
 
-### Heading 1.1
+### assets
 
 Reference images from the `assets/` folder like so:
 
 ```
-![](https://raw.githubusercontent.com/appdev-lessons/learn-lesson-template/main/assets/example-image.png)
+![](assets/example-image.png)
 
-![](https://raw.githubusercontent.com/appdev-lessons/learn-lesson-template/main/assets/example-gif.gif)
+![](assets/example-gif.gif)
 ```
 
-![](https://raw.githubusercontent.com/appdev-lessons/learn-lesson-template/main/assets/example-image.png)
+On pushes, the `assets/` fill be uploaded to an AWS S3 Bucket. Then, when the Lesson is generated on Learn, their URLs will be replaced as:
 
-![](https://raw.githubusercontent.com/appdev-lessons/learn-lesson-template/main/assets/example-gif.gif)
+```
+https://learn-lesson-assets.s3.us-east-2.amazonaws.com/<name-of-lesson-repo>/example-image.png
+```
 
-
-## Test image
+## Test images
 
 ![](https://learn-lesson-assets.s3.us-east-2.amazonaws.com/learn-lesson-template/example-gif.gif)
 
 ![](https://learn-lesson-assets.s3.us-east-2.amazonaws.com/learn-lesson-template/example-image.png)
-
-![](https://learn-lesson-assets.s3.us-east-2.amazonaws.com/learn-lesson-template/launch-codespace.png)
