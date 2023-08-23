@@ -1,0 +1,29 @@
+name: Push to S3
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET }}
+          aws-region: us-east-2
+
+      - name: Get repository name
+        id: repo_name
+        run: echo "::set-output name=repo_name::$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)"
+
+      - name: Create repository subfolder
+        run: |
+          aws s3api put-object --bucket learn-lesson-assets --key "${{ steps.repo_name.outputs.repo_name }}/"
+
+      - name: Sync assets to S3 bucket
+        run: |
+          aws s3 sync assets "s3://learn-lesson-assets/${{ steps.repo_name.outputs.repo_name }}/" --delete
