@@ -15,13 +15,14 @@ jobs:
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
         run: |
-          REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
-          for file in assets/*; do
-            curl --request POST \
-              --url "https://api.cloudinary.com/v1_1/$CLOUDINARY_CLOUD_NAME/auto/upload" \
-              --form "file=@$file" \
-              --form "public_id=$REPO_NAME/$(basename $file | sed 's/\.[^.]*$//')" \
-              --form "tags=$REPO_NAME" \
-              --header "X-Requested-With: XMLHttpRequest" \
-              --header "Authorization: Basic $(echo -n $CLOUDINARY_API_KEY:$CLOUDINARY_API_SECRET | base64)"
-          done
+          echo ${{ github.repository }}
+          # REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
+          # for file in assets/*; do
+          #   curl --request POST \
+          #     --url "https://api.cloudinary.com/v1_1/$CLOUDINARY_CLOUD_NAME/auto/upload" \
+          #     --form "file=@$file" \
+          #     --form "public_id=$REPO_NAME/$(basename $file | sed 's/\.[^.]*$//')" \
+          #     --form "tags=$REPO_NAME" \
+          #     --header "X-Requested-With: XMLHttpRequest" \
+          #     --header "Authorization: Basic $(echo -n $CLOUDINARY_API_KEY:$CLOUDINARY_API_SECRET | base64)"
+          # done
