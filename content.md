@@ -1,6 +1,6 @@
 # Replace with lesson title
 
-Add your content here!
+Add your content here! 
 
 ## Heading 1
 
@@ -17,5 +17,3 @@ Reference images from the `assets/` folder like so:
 ```
 
 ![](https://raw.githubusercontent.com/appdev-lessons/learn-lesson-template/main/assets/example-image.png)
-
-![](https://raw.githubusercontent.com/appdev-lessons/learn-lesson-template/main/assets/example-gif.gif)
